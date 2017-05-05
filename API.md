@@ -39,13 +39,8 @@
 | `DELETE` | Elimina un recurso                     |
 
 ### Ejemplo endpoints Alumno
-
-- `GET /alumnos`
-- `GET /alumnos/:id`
-- `POST /alumnos`
-- `PUT /alumnos/:id`
-- `PATCH /alumnos/:id`
-- `DELETE /alumnos/:id`
+- `/alumnos [GET, POST]`
+- `/alumnos/:id [GET, PUT, PATCH, DELETE]`
 
 ### Obtener TODOS Alumno [GET]
   Solicitud [GET] /alumnos
