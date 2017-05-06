@@ -1,15 +1,20 @@
 # API REST Académico
 
 ### Base de datos:
+
 - Alumno
   * id_alumno **PK**
   * nombre
   * email
   * telefono
+
+
 - Materia
   * id_materia **PK**
   * nombre
   * sigla
+
+
 - Inscripcion
   * id_inscripcion **PK**
   * fecha_inscripcion
@@ -35,132 +40,110 @@
 | `GET`    | Obtiene un recurso o lista de recursos |
 | `POST`   | Crea un recurso                        |
 | `PUT`    | Actualiza un recurso                   |
-| `PATCH`  | Actualiza una parte de un recurso      |
 | `DELETE` | Elimina un recurso                     |
 
 ### Ejemplo endpoints Alumno
 - `/alumnos [GET, POST]`
-- `/alumnos/:id [GET, PUT, PATCH, DELETE]`
+- `/alumnos/:id [GET, PUT, DELETE]`
 
 ### Obtener TODOS Alumno [GET]
-  Solicitud [GET] /alumnos
+  SOLICITUD [GET] /alumnos
 
-  Respuesta
+  RESPUESTA code: 200 status: Ok
   ```json
-  {
-    "status": "OK",
-    "code": 200,
-    "data": [
-      {
-        "id_alumno": 1,
-        "nombre": "Juan",
-        "email": "juan@gmail.com",
-        "telefono": 123456
-      }
-    ]
-  }
+  [
+    {
+      "id_alumno": 4,
+      "nombre": "Juan",
+      "email": "juan@gmail.com",
+      "telefono": 11111111,
+      "_fecha_creacion": "2017-05-06T06:44:51.000Z",
+      "_fecha_modificacion": "2017-05-06T06:44:51.000Z"
+    },
+    {
+      "id_alumno": 5,
+      "nombre": "rosa",
+      "email": "rosa@gmail.com",
+      "telefono": 22222222,
+      "_fecha_creacion": "2017-05-06T06:44:51.000Z",
+      "_fecha_modificacion": "2017-05-06T06:44:51.000Z"
+    },
+    {
+      "id_alumno": 6,
+      "nombre": "ana",
+      "email": "ana@gmail.com",
+      "telefono": 33333333,
+      "_fecha_creacion": "2017-05-06T06:44:51.000Z",
+      "_fecha_modificacion": "2017-05-06T06:44:51.000Z"
+    }
+  ]
   ```
 
   ### Obtener Alumno [GET]
-  Solicitud [GET] /alumnos/1
+  SOLICITUD [GET] /alumnos/1
 
-  Respuesta
+  RESPUESTA code: 200 status: Ok
   ```json
   {
-    "status": "OK",
-    "code": 200,
-    "data": {
-      "id_alumno": 1,
-      "nombre": "Juan",
-      "email": "juan@gmail.com",
-      "telefono": 123456
-    }
+    "id_alumno": 5,
+    "nombre": "rosa",
+    "email": "rosa@gmail.com",
+    "telefono": 22222222,
+    "_fecha_creacion": "2017-05-06T06:44:51.000Z",
+    "_fecha_modificacion": "2017-05-06T06:44:51.000Z"
   }
   ```
 
 ### Crear Alumno [POST]
-Solicitud [POST] /alumnos
+SOLICITUD [POST] /alumnos
 ```json
 {
-  "nombre": "Juan",
-  "email": "juan@gmail.com",
-  "telefono": 123456
+  "nombre": "lucy",
+  "email": "lucy@gmail.com",
+  "telefono": 77777777
 }
 ```
 
-Respuesta
+RESPUESTA code: 201 status: Created
 ```json
 {
-  "status": "OK",
-  "code": 200,
-  "data": {
-    "id_alumno": 1
-  }
+  "id_alumno": 7,
+  "nombre": "lucy",
+  "email": "lucy@gmail.com",
+  "telefono": 77777777,
+  "_fecha_modificacion": "2017-05-06T06:36:22.000Z",
+  "_fecha_creacion": "2017-05-06T06:36:22.000Z"
 }
 ```
 
-### Actualizar TODO Alumno [PUT]
-Solicitud [PUT] /alumnos/1
+### Actualizar Alumno [PUT]
+Solicitud [PUT] /alumnos/6
 ```json
 {
-  "nombre": "Juan Carlos",
-  "email": "juan@gmail.com",
-  "telefono": 123456
+  "nombre": "Ana María",
+  "email": "anita@gmail.com"
 }
 ```
 
-Respuesta
+RESPUESTA code: 200 status: Ok
 ```json
 {
-  "status": "OK",
-  "code": 200,
-  "data": {
-   "success": "Perfecto."
-  }
-}
-```
-
-### Actualizar Alumno [PATCH]
-Solicitud [PATCH] /alumnos/1
-```json
-{
-  "email": "juancarlos@gmail.com",
-}
-```
-
-Respuesta
-```json
-{
-  "status": "OK",
-  "code": 200,
-  "data": {
-   "success": "Perfecto."
-  }
+  "id_alumno": 6,
+  "nombre": "Ana María",
+  "email": "anita@gmail.com",
+  "telefono": 33333333,
+  "_fecha_creacion": "2017-05-06T06:44:51.000Z",
+  "_fecha_modificacion": "2017-05-06T06:38:41.000Z"
 }
 ```
 
 ### Eliminar Alumno [DELETE]
-Solicitud [DELETE] /alumnos/1
+SOLICITUD [DELETE] /alumnos/5
 
-Respuesta
-```json
-{
-  "status": "OK",
-  "code": 200,
-  "data": {
-   "success": "Perfecto."
-  }
-}
-```
+RESPUESTA code: 204 status: No Content
 
 ### Mensajes de error
 
-```json
-{
-  "status": "Unprocessable Entity",
-  "code": 422,
-  "data": {
-   "error": "Ya existe un registro con esos datos"
-  }
-}
-```
+RESPUESTA code: 404 status: Not Found
+
+RESPUESTA code: 500 status: Internal Server Error
