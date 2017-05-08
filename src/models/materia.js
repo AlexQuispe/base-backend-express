@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var alumno = sequelize.define('alumno', {
-    id_alumno: {
+  var materia = sequelize.define('materia', {
+    id_materia: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
@@ -10,16 +10,13 @@ module.exports = function(sequelize, DataTypes) {
     nombre: {
       type: DataTypes.STRING,
     },
-    email: {
+    sigla: {
       type: DataTypes.STRING,
-    },
-    telefono: {
-      type: DataTypes.INTEGER,
     }
   }, {
     createdAt: '_fecha_creacion',
     updatedAt: '_fecha_modificacion',
     freezeTableName: true
   });
-  return alumno;
+  return materia;
 };

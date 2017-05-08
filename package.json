@@ -7,8 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "test": "mocha test/routes/*.js"
+    "start": "sequelize --env development db:migrate:undo:all && sequelize --env development db:migrate && sequelize --env development db:seed:all",
+    "test": "sequelize --env test db:migrate:undo:all && sequelize --env test db:migrate && mocha test/routes/**/*.js"
   },
   "dependencies": {
     "body-parser": "~1.17.1",

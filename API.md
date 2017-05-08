@@ -25,6 +25,7 @@
 
   - `200` **Ok**. La petición del navegador se ha completado con éxito.
   - `204` **No Content**. La petición se ha completado con éxito pero su respuesta no tiene ningún contenido.
+  - `206` **Partial Content**. La respuesta se ha completado con éxito y ha devuelto parte del contenido.
   - `400` **Bad Request**. El servidor no es capaz de entender la petición del navegador porque su sintaxis no es correcta.
   - `401` **Unauthorized**. El recurso solicitado por el navegador requiere de autenticación.
   - `404` **Not Found**. El servidor no puede encontrar el recurso solicitado por el navegador.

@@ -1,31 +1,28 @@
 'use strict';
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('alumno', [{
+    return queryInterface.bulkInsert('inscripcion', [{
       id_alumno: 1,
-      nombre: 'Juan',
-      email: 'juan@gmail.com',
-      telefono: 11111111,
+      id_materia: 1,
+      fecha_inscripcion: new Date('2015-03-25'),
+      _fecha_creacion: new Date(),
+      _fecha_modificacion: new Date()
+    },{
+      id_alumno: 1,
+      id_materia: 2,
+      fecha_inscripcion: new Date('2015-03-26'),
       _fecha_creacion: new Date(),
       _fecha_modificacion: new Date()
     },{
       id_alumno: 2,
-      nombre: 'rosa',
-      email: 'rosa@gmail.com',
-      telefono: 22222222,
-      _fecha_creacion: new Date(),
-      _fecha_modificacion: new Date()
-    },{
-      id_alumno: 3,
-      nombre: 'ana',
-      email: 'ana@gmail.com',
-      telefono: 33333333,
+      id_materia: 3,
+      fecha_inscripcion: new Date('2015-03-27'),
       _fecha_creacion: new Date(),
       _fecha_modificacion: new Date()
     }], {});
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('alumno', null, {});
+    return queryInterface.bulkDelete('inscripcion', null, {});
   }
 };

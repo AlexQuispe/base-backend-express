@@ -1,7 +1,7 @@
 // Importamos las dependencias
-var express =           require('express');
-var consign =           require('consign');
-var path =              require('path');
+var express = require('express');
+var consign = require('consign');
+var path = require('path');
 
 // Declaramos el servidor
 var app = express();
