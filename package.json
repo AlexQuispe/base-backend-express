@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "sequelize --env development db:migrate:undo:all && sequelize --env development db:migrate && sequelize --env development db:seed:all",
+    "start": "sequelize --env development db:migrate:undo:all && sequelize --env development db:migrate && sequelize --env development db:seed:all && node app.js",
     "test": "sequelize --env test db:migrate:undo:all && sequelize --env test db:migrate && mocha test/routes/**/*.js"
   },
   "dependencies": {
