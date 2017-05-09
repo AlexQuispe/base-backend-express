@@ -9,10 +9,21 @@ $ `cd base-express`
 ### 3. Instalamos las dependencias
 $ `npm install`
 
-### 4. Desplegamos la aplicación
+### 4. Ejecutamos las pruebas unitarias
+Antes, debemos crear la base de datos y configurar los archivos:
+-  `config.json`
+-  `config.test.js`
+-  `config.development.js`
+-  `config.production.js`
+
+Ahora si, ejecutamos las pruebas.
+
+$ `npm test`
+
+### 5. Desplegamos la aplicación
 $ `npm start`
 
-Ahora podemos ver la aplicación ejecutándose sobre http://localhost:8000/
+Eso es todo, el servidor está corriendo en : http://localhost:8000/
 
 # Comandos Sequelize
 
