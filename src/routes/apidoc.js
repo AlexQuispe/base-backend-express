@@ -1,6 +1,9 @@
-module.exports = app => {
+'use strict';
+
+module.exports = function(app) {
 
   app.get('/apidoc', function(req, res, next) {
+    res.set('Content-Type','text/html');
     res.status(200).render('index');
   });
 

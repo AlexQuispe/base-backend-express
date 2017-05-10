@@ -1,3 +1,4 @@
+'use strict';
 var supertest = require("supertest");
 var chai = require("chai");
 

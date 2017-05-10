@@ -1,11 +1,11 @@
-// Importamos las dependencias
-var express =           require('express');
-var path =              require('path');
-var favicon =           require('serve-favicon');
-var bodyParser =        require('body-parser');
-var cors =              require('cors');
+'use strict';
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var bodyParser = require('body-parser');
+var cors = require('cors');
 
-module.exports = app => {
+module.exports = function(app) {
   // Obtenemos las variables de configuración
   var configuracion = app.src.config.config;
   // Definimos el tipo de dato de la variable req.body

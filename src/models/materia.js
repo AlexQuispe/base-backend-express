@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   var materia = sequelize.define('materia', {
     id_materia: {

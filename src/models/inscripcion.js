@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   var inscripcion = sequelize.define('inscripcion', {
     id_inscripcion: {

@@ -1,13 +1,12 @@
-var sequelizeHandlers = require('sequelize-handlers');
+'use strict';
+var sh = require('../../libs/sequelize-handlers/index');
 
-module.exports = app => {
-  var materia = app.src.db.models.materia;
+module.exports = function(app) {
+  var Materia = app.src.db.models.materia;
 
-  app.get('/materias', sequelizeHandlers.query(materia));
-  app.get('/materias/:id', sequelizeHandlers.get(materia));
-  app.post('/materias', sequelizeHandlers.create(materia));
-  app.put('/materias/:id', sequelizeHandlers.update(materia));
-  app.delete('/materias/:id', sequelizeHandlers.remove(materia));
-
-  return materia;
+  app.get('/materias', sh.query(Materia));
+  app.get('/materias/:id', sh.get(Materia));
+  app.post('/materias', sh.create(Materia));
+  app.put('/materias/:id', sh.update(Materia));
+  app.delete('/materias/:id', sh.remove(Materia));
 };

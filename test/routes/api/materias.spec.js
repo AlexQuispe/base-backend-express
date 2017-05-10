@@ -1,3 +1,4 @@
+'use strict';
 var request = require('supertest');
 var async = require('async');
 var api = require('../../../app.js');

@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('inscripcion', {
@@ -14,15 +15,15 @@ module.exports = {
       id_alumno: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'alumno',
-            key: 'id_alumno'
+          model: 'alumno',
+          key: 'id_alumno'
         }
       },
       id_materia: {
         type: Sequelize.INTEGER,
         references: {
-            model: 'materia',
-            key: 'id_materia'
+          model: 'materia',
+          key: 'id_materia'
         }
       },
       _fecha_creacion: {

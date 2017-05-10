@@ -1,13 +1,12 @@
-var sequelizeHandlers = require('sequelize-handlers');
+'use strict';
+var sh = require('../../libs/sequelize-handlers/index');
 
-module.exports = app => {
-  var inscripcion = app.src.db.models.inscripcion;
+module.exports = function(app) {
+  var Inscripcion = app.src.db.models.inscripcion;
 
-  app.get('/inscripciones', sequelizeHandlers.query(inscripcion));
-  app.get('/inscripciones/:id', sequelizeHandlers.get(inscripcion));
-  app.post('/inscripciones', sequelizeHandlers.create(inscripcion));
-  app.put('/inscripciones/:id', sequelizeHandlers.update(inscripcion));
-  app.delete('/inscripciones/:id', sequelizeHandlers.remove(inscripcion));
-
-  return inscripcion;
+  app.get('/inscripciones', sh.query(Inscripcion));
+  app.get('/inscripciones/:id', sh.get(Inscripcion));
+  app.post('/inscripciones', sh.create(Inscripcion));
+  app.put('/inscripciones/:id', sh.update(Inscripcion));
+  app.delete('/inscripciones/:id', sh.remove(Inscripcion));
 };
