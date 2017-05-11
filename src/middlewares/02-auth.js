@@ -21,11 +21,13 @@ module.exports = function(app) {
     try {
       var tokenDecoded = jwt.decode(token, configuracion.jwtSecret);
     } catch (err) {
-      return res.status(401).json({error:"Token inválido"});
+      //return res.status(401).json({error:"Token inválido"});
+      return res.status(401).json(errorResponse.err401);
     }
     // Verifica si el token ha expirado
     if (tokenDecoded.exp <= Date.now()) {
-      return res.status(401).json({error:"El token de acceso ha expirado"});
+      //return res.status(401).json({error:"El token ha expirado"});
+      return res.status(401).json(errorResponse.err401);
     }
 
     RolRuta.findAll({
@@ -34,7 +36,7 @@ module.exports = function(app) {
       },
       attributes: ['id_rol', 'access_get', 'access_post', 'access_put', 'access_delete'],
       include: [
-        {model: Ruta, as: 'ruta', attributes: ['id_ruta','nombre']},
+        {model: Ruta, as: 'ruta', attributes: ['nombre']},
       ]
     })
     .then(function(result) {
@@ -44,7 +46,6 @@ module.exports = function(app) {
         var ruta = result[i].ruta;
         if(req.originalUrl.indexOf(ruta.nombre) >= 0) {
           //Acceso autorizado
-          id_ruta = ruta.id_ruta;
           tieneAcceso = true;
           break;
         }
@@ -54,11 +55,13 @@ module.exports = function(app) {
         req.body.usuario_autenticado = tokenDecoded.data;
         next();
       } else {
+        //return res.status(403).json({error:"Acceso denegado"});
         return res.status(403).json(errorResponse.err403);
       }
 
     }).catch(function (err) {
-      return res.status(403).json(errorResponse.err403);
+      //return res.status(401).json({error:"Error de acceso"});
+      return res.status(401).json(errorResponse.err401);
     });
   });
 };

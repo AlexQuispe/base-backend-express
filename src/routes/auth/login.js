@@ -13,7 +13,10 @@ module.exports = function(app) {
     }
     var user = body.usuario;
     var pass = crypto.createHash("md5").update(body.contrasena).digest("hex");
-    usuario.findOne({where:{usuario:user,contrasena:pass}})
+    usuario.findOne({
+      where: {usuario: user, contrasena: pass},
+      attributes:['id_usuario','id_rol']
+    })
     .then(function(usuario) {
       if (!usuario) {
         return res.status(200).json({error:"Usuario y/o contraseña incorrecta"});
