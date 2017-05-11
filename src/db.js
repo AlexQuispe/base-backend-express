@@ -20,13 +20,18 @@ module.exports = function(app) {
       models: {}
     };
 
-    var dir = path.join(__dirname, "models");
-    fs.readdirSync(dir).forEach(file => {
-      var modelDir = path.join(dir, file);
-      var model = sequelize.import(modelDir);
-      db.models[model.name] = model;
+    var dirModels = path.join(__dirname, "models");
+    fs.readdirSync(dirModels).forEach(dir => {
+      if(fs.statSync(`${dirModels}/${dir}`).isDirectory()){
+        var subDirModels = path.join(dirModels, dir);
+        fs.readdirSync(subDirModels).forEach(file => {
+          var pathFile = path.join(subDirModels, file);
+          var model = sequelize.import(pathFile);
+          db.models[model.name] = model;
+        });
+      }
     });
-
+    
     Object.keys(db).forEach((modelName) => {
       if (db[modelName].associate) {
         db[modelName].associate(db)

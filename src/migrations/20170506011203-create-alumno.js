@@ -18,6 +18,13 @@ module.exports = {
       telefono: {
         type: Sequelize.INTEGER
       },
+      id_usuario: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'usuario',
+          key: 'id_usuario'
+        }
+      },
       _fecha_creacion: {
         allowNull: false,
         type: Sequelize.DATE

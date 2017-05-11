@@ -21,9 +21,9 @@ module.exports = function(app) {
   // Configuramos los cors.
   app.use(cors({
     "origin": "*",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    "methods": "GET,POST,PUT,DELETE,OPTIONS",
     "preflightContinue": true,
-    "headers": "Content-Type, Authorization, Content-Length, X-Requested-With",
+    "headers": "Content-Type, Authorization, Content-Length",
     "Access-Control-Allow-Headers": "Authorization, Content-Type"
   }));
 }

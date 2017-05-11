@@ -1,31 +1,31 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  var alumno = sequelize.define('alumno', {
-    id_alumno: {
+  var usuario = sequelize.define('usuario', {
+    id_usuario: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    nombre: {
-      type: DataTypes.STRING,
-      validate: {
-        isAlpha: true
-      }
-    },
-    email: {
+    usuario: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true
+        len: [3, 15],
+        isAlphanumeric: true
       }
     },
-    telefono: {
-      type: DataTypes.INTEGER,
+    contrasena: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    rol: {
+      type: DataTypes.STRING,
+      allowNull: false,
       validate: {
-        isNumeric: true
+        isIn: [['ADMIN', 'USER']]
       }
     }
   }, {
@@ -33,5 +33,5 @@ module.exports = function(sequelize, DataTypes) {
     updatedAt: '_fecha_modificacion',
     freezeTableName: true
   });
-  return alumno;
+  return usuario;
 };

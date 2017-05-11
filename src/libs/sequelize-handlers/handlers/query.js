@@ -1,5 +1,5 @@
 'use strict';
-var errorHandler = require('../errors');
+var errorResponse = require('../errors');
 
 module.exports = function(model) {
 
@@ -15,7 +15,7 @@ module.exports = function(model) {
       res.set('Content-Range', start + '-' + end + '/' + count);
       res.status(200).json(result.rows);
     }).catch(function (err) {
-      res.status(400).json(errorHandler.err400);
+      res.status(400).json(errorResponse.err400);
     });
   }
 

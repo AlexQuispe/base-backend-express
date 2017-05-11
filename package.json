@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "setup": "sequelize --env development db:migrate:undo:all && sequelize --env development db:migrate && sequelize --env development db:seed:all",
+    "restart": "sequelize --env development db:migrate:undo:all && sequelize --env development db:migrate && sequelize --env development db:seed:all && node app.js",
     "test": "sequelize --env test db:migrate:undo:all && sequelize --env test db:migrate && mocha test/routes/**/*.js"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "cors": "^2.8.3",
     "ejs": "^2.5.6",
     "express": "~4.15.2",
+    "jwt-simple": "^0.5.1",
     "mysql": "^2.13.0",
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",

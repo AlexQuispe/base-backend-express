@@ -1,5 +1,5 @@
 'use strict';
-var errorHandler = require('../errors');
+var errorResponse = require('../errors');
 
 module.exports = function(model) {
 
@@ -7,12 +7,12 @@ module.exports = function(model) {
     res.set('Content-Type','application/json');
     model.build(req.body).save().then(function(result) {
       if (!result) {
-        res.status(404).json(errorHandler.err404);
+        res.status(404).json(errorResponse.err404);
       } else {
         res.status(201).json(result);
       }
     }).catch(function (err) {
-      res.status(400).json(errorHandler.err400);
+      res.status(400).json(errorResponse.err400);
     });
   }
 

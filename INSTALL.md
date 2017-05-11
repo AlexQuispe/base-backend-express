@@ -3,7 +3,7 @@
 ### 1. Clonamos el proyecto
 $ `git clone https://github.com/waquispe/base-backend-express`
 
-### 2. Entramos en el directorio del proyecto
+### 2. Ingresamos al directorio
 $ `cd base-express`
 
 ### 3. Instalamos las dependencias
@@ -20,12 +20,12 @@ Ahora si, ejecutamos las pruebas.
 
 $ `npm test`
 
-### 5. Desplegamos la aplicación
+### 5. Ejecutamos el servidor
 $ `npm start`
 
-Eso es todo, el servidor está corriendo en : http://localhost:8000/
+Eso es todo, el servidor estará corriendo en: http://localhost:8000/
 
-# Comandos Sequelize
+# Comandos Básicos de Sequelize-cli
 
 ### Inicia el modulo sequelize-cli
 $ `sequelize init`
@@ -47,17 +47,3 @@ $ `sequelize db:seed:all`
 
 ### Elimina todos los recursos
 $ `sequelize db:seed:undo:all`
-
-
-# Ejemplos de consultas con Sequelize-handlers
-
-### Ejemplo de una peticion GET
-- `GET /alumnos`
-- `GET /alumnos/1`
-- `GET /alumnos?offset=5&limit=25`
-- `GET /alumnos?fields=id_alumno,nombre`
-- `GET /alumnos?type=new,existing`
-- `GET /alumnos?sort=id_alumno,-nombre`
-
-### Referencias:
-- sequelize-handlers  https://github.com/botter-workshop/sequelize-handlers
