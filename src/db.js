@@ -31,10 +31,10 @@ module.exports = function(app) {
         });
       }
     });
-    
-    Object.keys(db).forEach((modelName) => {
-      if (db[modelName].associate) {
-        db[modelName].associate(db)
+
+    Object.keys(db.models).forEach(key => {
+      if(db.models[key].associate!=undefined){
+        db.models[key].associate(db.models);
       }
     });
   }

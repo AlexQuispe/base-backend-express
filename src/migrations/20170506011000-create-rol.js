@@ -2,28 +2,19 @@
 
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('alumno', {
-      id_alumno: {
+    return queryInterface.createTable('rol', {
+      id_rol: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
       },
       nombre: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
-      email: {
-        type: Sequelize.STRING
-      },
-      telefono: {
-        type: Sequelize.INTEGER
-      },
-      id_usuario: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'usuario',
-          key: 'id_usuario'
-        }
+      descripcion: {
+        type: Sequelize.STRING,
       },
       _fecha_creacion: {
         type: Sequelize.DATE,
@@ -36,6 +27,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('alumno');
+    return queryInterface.dropTable('rol');
   }
 };

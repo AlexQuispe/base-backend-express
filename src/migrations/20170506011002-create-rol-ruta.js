@@ -2,20 +2,24 @@
 
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('usuario', {
-      id_usuario: {
+    return queryInterface.createTable('rol_ruta', {
+      id_rol_ruta: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
       },
-      usuario: {
-        type: Sequelize.STRING,
-        allowNull: false
+      access_get: {
+        type: Sequelize.BOOLEAN
       },
-      contrasena: {
-        type: Sequelize.STRING,
-        allowNull: false
+      access_post: {
+        type: Sequelize.BOOLEAN
+      },
+      access_put: {
+        type: Sequelize.BOOLEAN
+      },
+      access_delete: {
+        type: Sequelize.BOOLEAN
       },
       id_rol: {
         type: Sequelize.INTEGER,
@@ -23,6 +27,14 @@ module.exports = {
         references: {
           model: 'rol',
           key: 'id_rol'
+        }
+      },
+      id_ruta: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'ruta',
+          key: 'id_ruta'
         }
       },
       _fecha_creacion: {
@@ -36,6 +48,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('usuario');
+    return queryInterface.dropTable('rol_ruta');
   }
 };

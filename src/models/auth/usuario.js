@@ -21,11 +21,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    rol: {
+    id_rol: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isIn: [['ADMIN', 'USER']]
+      references: {
+        model: 'rol',
+        key: 'id_rol'
       }
     }
   }, {

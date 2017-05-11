@@ -3,8 +3,12 @@ var errorResponse = require('../libs/sequelize-handlers/errors');
 var jwt = require('jwt-simple');
 
 module.exports = function(app) {
-  app.use('/api', function(req, res, next) {
+  var configuracion = app.src.config.config;
+  var RolRuta = app.src.db.models.rol_ruta;
+  var Ruta = app.src.db.models.ruta;
+  var Rol = app.src.db.models.rol;
 
+  app.use('/api', function(req, res, next) {
     if (req.method == 'OPTIONS') {
       next();
     }
@@ -15,7 +19,7 @@ module.exports = function(app) {
     }
     // Verifica si el token es válido
     try {
-      var tokenDecoded = jwt.decode(token, app.src.config.config.jwtSecret);
+      var tokenDecoded = jwt.decode(token, configuracion.jwtSecret);
     } catch (err) {
       return res.status(401).json({error:"Token inválido"});
     }
@@ -24,18 +28,37 @@ module.exports = function(app) {
       return res.status(401).json({error:"El token de acceso ha expirado"});
     }
 
-    //var rutaConAcceso = "/api/alumnos";
-    //console.log("Accediendo a ", req.originalUrl);
+    RolRuta.findAll({
+      where: {
+        id_rol: tokenDecoded.data.id_rol
+      },
+      attributes: ['id_rol', 'access_get', 'access_post', 'access_put', 'access_delete'],
+      include: [
+        {model: Ruta, as: 'ruta', attributes: ['id_ruta','nombre']},
+      ]
+    })
+    .then(function(result) {
+      var tieneAcceso = false;
+      var id_ruta = 0;
+      for (var i = 0; i < result.length; i++) {
+        var ruta = result[i].ruta;
+        if(req.originalUrl.indexOf(ruta.nombre) >= 0) {
+          //Acceso autorizado
+          id_ruta = ruta.id_ruta;
+          tieneAcceso = true;
+          break;
+        }
+      }
 
-    // Verifica si tiene acceso a esa ruta
-    /*if(req.originalUrl.indexOf(rutaConAcceso) < 0) {
+      if (tieneAcceso) {
+        req.body.usuario_autenticado = tokenDecoded.data;
+        next();
+      } else {
+        return res.status(403).json(errorResponse.err403);
+      }
+
+    }).catch(function (err) {
       return res.status(403).json(errorResponse.err403);
-    }*/
-
-    // Usuario Autenticado y Con acceso a esta ruta
-    // Guarda los datos del usuario en el body de la peticion
-    req.body.usuario_autenticado = tokenDecoded.usuario;
-
-    next();
+    });
   });
 };

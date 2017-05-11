@@ -4,10 +4,10 @@ module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('inscripcion', {
       id_inscripcion: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        autoIncrement: true
       },
       fecha_inscripcion: {
         type: Sequelize.DATE

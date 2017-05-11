@@ -6,21 +6,21 @@ module.exports = {
       id_usuario: 1,
       usuario: "admin",
       contrasena: "202cb962ac59075b964b07152d234b70",
-      rol: "ADMIN",
+      id_rol: 1,
       _fecha_creacion: new Date(),
       _fecha_modificacion: new Date()
     },{
       id_usuario: 2,
       usuario: "alumno1",
       contrasena: "202cb962ac59075b964b07152d234b70",
-      rol: "USER",
+      id_rol: 2,
       _fecha_creacion: new Date(),
       _fecha_modificacion: new Date()
     },{
       id_usuario: 3,
       usuario: "alumno2",
       contrasena: "202cb962ac59075b964b07152d234b70",
-      rol: "USER",
+      id_rol: 2,
       _fecha_creacion: new Date(),
       _fecha_modificacion: new Date()
     }], {});

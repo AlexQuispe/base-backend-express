@@ -10,9 +10,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     fecha_inscripcion: {
       type: DataTypes.DATE,
+      allowNull: false
     },
     id_alumno: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: 'alumno',
         key: 'id_alumno'
@@ -20,6 +22,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     id_materia: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: 'materia',
         key: 'id_materia'

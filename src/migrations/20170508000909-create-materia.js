@@ -4,10 +4,10 @@ module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('materia', {
       id_materia: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        autoIncrement: true
       },
       nombre: {
         type: Sequelize.STRING

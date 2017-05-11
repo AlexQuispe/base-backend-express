@@ -24,7 +24,7 @@ module.exports = function(model) {
     var offset = query.offset ? parseInt(query.offset) : 0; // ?offset=1
     var limit = query.limit ? parseInt(query.limit) : 50; // ?limit=10
     var attributes = query.fields ? query.fields.split(",") : []; // ?fields=nombre,email
-    var order = query.sort; // ?sort=email desc
+    var order = query.sort; // ?sort=email+desc
     var where = {}; // ?nombre=carlos
     for (var field in model.attributes) {
       if(query.hasOwnProperty(field)) where[field] = query[field];

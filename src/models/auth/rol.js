@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  var materia = sequelize.define('materia', {
-    id_materia: {
+  var rol = sequelize.define('rol', {
+    id_rol: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
@@ -10,16 +10,23 @@ module.exports = function(sequelize, DataTypes) {
     },
     nombre: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isIn: [['ADMIN', 'USER']]
+      }
     },
-    sigla: {
+    descripcion: {
       type: DataTypes.STRING,
-      allowNull: false
     }
   }, {
     createdAt: '_fecha_creacion',
     updatedAt: '_fecha_modificacion',
-    freezeTableName: true
+    freezeTableName: true,
+    classMethods: {
+      associate: (models) => {
+        rol.hasMany(models.rol_ruta, {as: 'rol_ruta', foreignKey: 'id_rol'});
+      }
+    }
   });
-  return materia;
+  return rol;
 };

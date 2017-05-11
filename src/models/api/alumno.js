@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     nombre: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         isAlpha: true
       }
