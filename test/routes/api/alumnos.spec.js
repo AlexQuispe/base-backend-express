@@ -25,7 +25,6 @@ describe('Test ALUMNO', function() {
         request.post('/api/alumnos')
         .set('Accept', 'application/json')
         .set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ0NzQ1NjMzNjIsImp0aSI6Im42NDBjNG9ndjYiLCJleHAiOjE0OTQ1NjA5NjMzNjIsImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwidXN1YXJpbyI6ImFkbWluIiwiY29udHJhc2VuYSI6IjIwMmNiOTYyYWM1OTA3NWI5NjRiMDcxNTJkMjM0YjcwIiwicm9sIjoiQURNSU4iLCJfZmVjaGFfY3JlYWNpb24iOiIyMDE3LTA1LTExVDAwOjU3OjQxLjAwMFoiLCJfZmVjaGFfbW9kaWZpY2FjaW9uIjoiMjAxNy0wNS0xMVQwMDo1Nzo0MS4wMDBaIn19.wRAvriwO3SFdu1j7b33yv-ZxWB0_Yo4b_Av6kHLz3C0')
-        .set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ0NzQ1NjMzNjIsImp0aSI6Im42NDBjNG9ndjYiLCJleHAiOjE0OTQ1NjA5NjMzNjIsImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwidXN1YXJpbyI6ImFkbWluIiwiY29udHJhc2VuYSI6IjIwMmNiOTYyYWM1OTA3NWI5NjRiMDcxNTJkMjM0YjcwIiwicm9sIjoiQURNSU4iLCJfZmVjaGFfY3JlYWNpb24iOiIyMDE3LTA1LTExVDAwOjU3OjQxLjAwMFoiLCJfZmVjaGFfbW9kaWZpY2FjaW9uIjoiMjAxNy0wNS0xMVQwMDo1Nzo0MS4wMDBaIn19.wRAvriwO3SFdu1j7b33yv-ZxWB0_Yo4b_Av6kHLz3C0')
         .send(alumno)
         .expect(201)
         .expect('Content-Type', /application\/json/)

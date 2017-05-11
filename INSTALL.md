@@ -14,7 +14,6 @@ Antes, debemos crear la base de datos y configurar los archivos:
 -  `config.json`
 -  `config.test.js`
 -  `config.development.js`
--  `config.production.js`
 
 Ahora si, ejecutamos las pruebas.
 
