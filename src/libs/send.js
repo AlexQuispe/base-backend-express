@@ -13,7 +13,7 @@ module.exports = {
     res.status(204).json({success: "Ok"});
   },
   error400: function(res, data) {
-    res.status(400).json({success: "Fail", data: data || "Error en la petición"});
+    res.status(400).json({success: "Fail", data: data || "Algunos datos no son válidos"});
   },
   error401: function(res, data) {
     res.status(401).json({success: "Fail", data: data || "Requiere autenticación"});

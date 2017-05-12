@@ -22,15 +22,7 @@ consign()
 // Configuramos la carpeta que contiene las vistas y el motor de vistas.
 app.set('views', path.join(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
-// Ruta para el apidoc
-app.get('/apidoc', function(req, res, next) {
-  res.set('Content-Type','text/html');
-  res.status(200).render('index');
-});
-// Ruta por defecto
-app.get('/', function(req, res, next) {
-  res.redirect('/apidoc');
-});
+
 // Si ninguna ruta es válida, muestra un mensaje de error
 app.use(function (req, res, next) {
   res.status(404).json({error: "404", status: "Not Found", message: "El recurso no existe"});

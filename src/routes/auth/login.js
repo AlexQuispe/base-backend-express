@@ -6,10 +6,43 @@ var crypto = require('crypto');
 module.exports = function(app) {
   var usuario = app.src.db.models.usuario;
 
+  /**
+  * @api {post} /auth/login Login
+  * @apiName Login
+  * @apiGroup Auth
+  * @apiVersion 1.0.0
+  * @apiSampleRequest http://localhost:8000/auth/login
+  *
+  * @apiParam {String} usuario Nombre del usuario.
+  * @apiParam {String} contrasena Contraseña del usuario.
+  *
+  * @apiSuccess {String} success Resultado de la petición.
+  * @apiSuccess {Object} data Objeto que contiene el token y datos del usuario.
+  *
+  * @apiSuccessExample Success-Response:
+  * HTTP/1.1 200 OK
+  * {
+  *   "success": "Ok",
+  *   "data": {
+  *     "token": "eyJ0eXAiOiJKV1QiLCJhb...",
+  *     "usuario": {
+  *       "id_usuario": 1,
+  *       "id_rol": 1
+  *     }
+  *   }
+  * }
+  *
+  * @apiErrorExample Error-Response:
+  * HTTP/1.1 401 Unauthorized
+  * {
+  *   "success": "Fail",
+  *   "data": "Usuario y/o contraseña incorrecta"
+  * }
+  */
   app.post('/auth/login', function(req, res, next) {
     var body = req.body;
     if (!body.usuario || !body.contrasena) {
-      return send.error400(res, "Error, no se reconoce usuario y contrasena");
+      return send.error400(res, "Usuario y/o contraseña incorrecta");
     }
     var user = body.usuario;
     var pass = crypto.createHash("md5").update(body.contrasena).digest("hex");

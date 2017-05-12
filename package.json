@@ -12,6 +12,7 @@
     "test": "sequelize --env test db:migrate:undo:all && sequelize --env test db:migrate && sequelize --env test db:seed:all && mocha test/routes/**/*.js"
   },
   "dependencies": {
+    "apidoc": "^0.17.5",
     "body-parser": "~1.17.1",
     "consign": "^0.1.4",
     "cors": "^2.8.3",

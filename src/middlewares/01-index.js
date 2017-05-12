@@ -15,8 +15,6 @@ module.exports = function(app) {
   app.use(bodyParser.urlencoded({ extended: false }));
   // Definimos la carpeta que será publica
   app.use(express.static(path.join(__dirname, '..','..','public')));
-  // Definimos la ubicación del icono de la aplicación
-  app.use(favicon(path.join(__dirname, '..','..','public', 'favicon.ico')));
   // Definimos el puerto sobre el que se ejecutará la aplicación
   app.set('port', configuracion.puerto);
   // Configuramos los cors.

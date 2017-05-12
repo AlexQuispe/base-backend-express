@@ -6,7 +6,8 @@ module.exports = function(model) {
   function remove(req, res, next) {
     model.destroy(getOptions(req))
     .then(function(result) {
-      if (!result) {
+      console.log("RESULT REMOVE = ", result);
+      if (!result[0]) {
         send.error404(res);
       } else {
         send.success200(res);
