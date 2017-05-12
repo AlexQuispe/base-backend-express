@@ -1,19 +1,18 @@
 'use strict';
-var errorResponse = require('../errors');
+var send = require('../../send');
 
 module.exports = function(model) {
 
   function get(req, res, next) {
-    res.set('Content-Type','application/json');
     model.findOne(getOptions(req))
     .then(function(result) {
       if (!result) {
-        res.status(404).json(errorResponse.err404);
+        send.error404(res);
       } else {
-        res.status(200).json(result);
+        send.success200(res, result);
       }
     }).catch(function (err) {
-      res.status(400).json(errorResponse.err400);
+      send.error400(res);
     });
   }
 
@@ -29,3 +28,33 @@ module.exports = function(model) {
 
   return get;
 };
+
+
+/*
+
+Mensajes de error:
+{
+  "error": true,
+  "code": 400,
+  "status": "Bad Request",
+  "data": "Error en la petición"
+}
+
+
+Mensajes de respuesta:
+{
+  "code": 200,
+  "status": "OK",
+  "data": {
+    "id_alumno": 1,
+    "nombre": "Juan",
+    "email": "juan@gmail.com",
+    "telefono": 11111111,
+    "id_usuario": 1,
+    "_fecha_creacion": "2017-05-11T17:52:02.000Z",
+    "_fecha_modificacion": "2017-05-11T17:52:02.000Z"
+  }
+}
+
+
+*/

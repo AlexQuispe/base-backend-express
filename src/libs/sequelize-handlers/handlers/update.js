@@ -1,5 +1,5 @@
 'use strict';
-var errorResponse = require('../errors');
+var send = require('../../send');
 
 module.exports = function(model) {
 
@@ -8,12 +8,12 @@ module.exports = function(model) {
     model.update(req.body, getOptions(req))
     .then(function(result) {
       if (!result) {
-        res.status(404).json(errorResponse.err404);
+        send.error404(res);
       } else {
-        res.status(200).json(result);
+        send.success200(res);
       }
     }).catch(function (err) {
-      res.status(400).json(errorResponse.err400);
+      send.error400(res);
     });
   }
 

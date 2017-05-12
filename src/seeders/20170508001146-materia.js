@@ -20,6 +20,12 @@ module.exports = {
       sigla: 'INF-273',
       _fecha_creacion: new Date(),
       _fecha_modificacion: new Date()
+    },{
+      id_materia: 4,
+      nombre: 'Taller de Base de Datos',
+      sigla: 'INF-272',
+      _fecha_creacion: new Date(),
+      _fecha_modificacion: new Date()
     }], {});
   },
 

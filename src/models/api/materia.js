@@ -19,7 +19,12 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     createdAt: '_fecha_creacion',
     updatedAt: '_fecha_modificacion',
-    freezeTableName: true
+    freezeTableName: true,
+    classMethods: {
+      associate: (models) => {
+        materia.hasMany(models.inscripcion, {as: 'inscripcion', foreignKey: 'id_materia'});
+      }
+    }
   });
   return materia;
 };

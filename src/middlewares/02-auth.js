@@ -1,9 +1,8 @@
 'use strict';
-var errorResponse = require('../libs/sequelize-handlers/errors');
+var send = require('../libs/send');
 var jwt = require('jwt-simple');
 
 module.exports = function(app) {
-  var configuracion = app.src.config.config;
   var RolRuta = app.src.db.models.rol_ruta;
   var Ruta = app.src.db.models.ruta;
   var Rol = app.src.db.models.rol;
@@ -12,22 +11,22 @@ module.exports = function(app) {
     if (req.method == 'OPTIONS') {
       next();
     }
+    // Tipo de contenido por defecto JSON
+    res.set('Content-Type','application/json');
     // Verifica que el token se encuentre en header Authorization
     var token = req.headers.authorization;
     if (!token) {
-      return res.status(401).json(errorResponse.err401);
+      return send.error401(res, "Requiere un token");
     }
     // Verifica si el token es válido
     try {
-      var tokenDecoded = jwt.decode(token, configuracion.jwtSecret);
+      var tokenDecoded = jwt.decode(token, app.src.config.config.jwtSecret);
     } catch (err) {
-      //return res.status(401).json({error:"Token inválido"});
-      return res.status(401).json(errorResponse.err401);
+      return send.error401(res, "Tóken inválido");
     }
     // Verifica si el token ha expirado
     if (tokenDecoded.exp <= Date.now()) {
-      //return res.status(401).json({error:"El token ha expirado"});
-      return res.status(401).json(errorResponse.err401);
+      return send.error401(res, "Tóken expirado");
     }
 
     RolRuta.findAll({
@@ -55,13 +54,11 @@ module.exports = function(app) {
         req.body.usuario_autenticado = tokenDecoded.data;
         next();
       } else {
-        //return res.status(403).json({error:"Acceso denegado"});
-        return res.status(403).json(errorResponse.err403);
+        return send.error403(res, "Acceso denegado");
       }
 
     }).catch(function (err) {
-      //return res.status(401).json({error:"Error de acceso"});
-      return res.status(401).json(errorResponse.err401);
+      return send.error401(res, "Error en el servidor");
     });
   });
 };

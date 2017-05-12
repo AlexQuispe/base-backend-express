@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node app.js",
     "restart": "sequelize --env development db:migrate:undo:all && sequelize --env development db:migrate && sequelize --env development db:seed:all && node app.js",
-    "test": "sequelize --env test db:migrate:undo:all && sequelize --env test db:migrate && mocha test/routes/**/*.js"
+    "test": "sequelize --env test db:migrate:undo:all && sequelize --env test db:migrate && sequelize --env test db:seed:all && mocha test/routes/**/*.js"
   },
   "dependencies": {
     "body-parser": "~1.17.1",

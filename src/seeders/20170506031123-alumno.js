@@ -6,7 +6,7 @@ module.exports = {
       id_alumno: 1,
       nombre: 'Juan',
       email: 'juan@gmail.com',
-      telefono: 11111111,
+      telefono: 22654665,
       id_usuario: 1,
       _fecha_creacion: new Date(),
       _fecha_modificacion: new Date()
@@ -14,7 +14,7 @@ module.exports = {
       id_alumno: 2,
       nombre: 'rosa',
       email: 'rosa@gmail.com',
-      telefono: 22222222,
+      telefono: 22984756,
       id_usuario: 2,
       _fecha_creacion: new Date(),
       _fecha_modificacion: new Date()
@@ -22,7 +22,7 @@ module.exports = {
       id_alumno: 3,
       nombre: 'ana',
       email: 'ana@gmail.com',
-      telefono: 33333333,
+      telefono: 78657775,
       id_usuario: 3,
       _fecha_creacion: new Date(),
       _fecha_modificacion: new Date()

@@ -32,7 +32,12 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     createdAt: '_fecha_creacion',
     updatedAt: '_fecha_modificacion',
-    freezeTableName: true
+    freezeTableName: true,
+    classMethods: {
+      associate: (models) => {
+        usuario.belongsTo(models.rol, {as: 'rol', foreignKey: 'id_rol'});
+      }
+    }
   });
   return usuario;
 };

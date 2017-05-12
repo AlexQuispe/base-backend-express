@@ -9,15 +9,10 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true
     },
     nombre: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isAlpha: true
-      }
+      type: DataTypes.STRING
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
       unique: true,
       validate: {
         isEmail: true
@@ -39,7 +34,12 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     createdAt: '_fecha_creacion',
     updatedAt: '_fecha_modificacion',
-    freezeTableName: true
+    freezeTableName: true,
+    classMethods: {
+      associate: (models) => {
+        alumno.hasMany(models.inscripcion, {as: 'inscripcion', foreignKey: 'id_alumno'});
+      }
+    }
   });
   return alumno;
 };

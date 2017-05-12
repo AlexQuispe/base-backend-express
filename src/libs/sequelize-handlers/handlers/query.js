@@ -1,21 +1,20 @@
 'use strict';
-var errorResponse = require('../errors');
+var send = require('../../send');
 
 module.exports = function(model) {
 
   function query(req, res, next) {
-    res.set('Content-Type','application/json');
     var options = getOptions(req)
     model.findAndCountAll(options)
     .then(function(result) {
-      var count = result.count,
-      start = options.offset,
-      end = options.offset + options.limit;
+      var count = result.count;
+      var start = options.offset;
+      var end = options.offset + options.limit;
       if (end > count) end = count;
       res.set('Content-Range', start + '-' + end + '/' + count);
-      res.status(200).json(result.rows);
+      send.success200(res, result.rows);
     }).catch(function (err) {
-      res.status(400).json(errorResponse.err400);
+      send.error400(res);
     });
   }
 
@@ -45,6 +44,5 @@ module.exports = function(model) {
     }
     return true;
   }
-
   return query;
 };

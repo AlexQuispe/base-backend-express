@@ -4,6 +4,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var send = require('../libs/send');
 
 module.exports = function(app) {
   // Obtenemos las variables de configuración
@@ -26,4 +27,12 @@ module.exports = function(app) {
     "headers": "Content-Type, Authorization, Content-Length",
     "Access-Control-Allow-Headers": "Authorization, Content-Type"
   }));
+  // Verifica el formato JSON
+  app.use((err, req, res, next) => {
+    if (err instanceof SyntaxError) {
+      send.error400(res, "Formato JSON incorrecto");
+    } else {
+      send.error500(res);
+    }
+  });
 }

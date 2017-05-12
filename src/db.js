@@ -22,7 +22,7 @@ module.exports = function(app) {
 
     var dirModels = path.join(__dirname, "models");
     fs.readdirSync(dirModels).forEach(dir => {
-      if(fs.statSync(`${dirModels}/${dir}`).isDirectory()){
+      if(fs.statSync(`${dirModels}/${dir}`).isDirectory()) {
         var subDirModels = path.join(dirModels, dir);
         fs.readdirSync(subDirModels).forEach(file => {
           var pathFile = path.join(subDirModels, file);
@@ -33,7 +33,7 @@ module.exports = function(app) {
     });
 
     Object.keys(db.models).forEach(key => {
-      if(db.models[key].associate!=undefined){
+      if(db.models[key].associate) {
         db.models[key].associate(db.models);
       }
     });

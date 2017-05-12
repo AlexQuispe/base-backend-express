@@ -31,7 +31,13 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     createdAt: '_fecha_creacion',
     updatedAt: '_fecha_modificacion',
-    freezeTableName: true
+    freezeTableName: true,
+    classMethods: {
+      associate: (models) => {
+        inscripcion.belongsTo(models.alumno, {as: 'alumno', foreignKey: 'id_alumno'});
+        inscripcion.belongsTo(models.materia, {as: 'materia', foreignKey: 'id_materia'});
+      }
+    }
   });
   return inscripcion;
 };

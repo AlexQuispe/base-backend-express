@@ -1,5 +1,5 @@
 'use strict';
-var errorResponse = require('../../libs/sequelize-handlers/errors');
+var send = require('../../libs/send');
 var jwt = require('jwt-simple');
 var crypto = require('crypto');
 
@@ -8,8 +8,8 @@ module.exports = function(app) {
 
   app.post('/auth/login', function(req, res, next) {
     var body = req.body;
-    if(!body.hasOwnProperty('usuario') || !body.hasOwnProperty('contrasena')) {
-      return res.status(400).json(errorResponse.err400);
+    if (!body.usuario || !body.contrasena) {
+      return send.error400(res, "Error, no se reconoce usuario y contrasena");
     }
     var user = body.usuario;
     var pass = crypto.createHash("md5").update(body.contrasena).digest("hex");
@@ -19,15 +19,15 @@ module.exports = function(app) {
     })
     .then(function(usuario) {
       if (!usuario) {
-        return res.status(200).json({error:"Usuario y/o contraseña incorrecta"});
+        return send.error401(res, "Usuario y/o contraseña incorrecta");
       }
       var data = {
         token: generateToken(usuario),
         usuario: usuario
       }
-      res.status(200).json(data);
+      send.success200(res, data);
     }).catch(function (err) {
-      res.status(400).json(errorResponse.err400);
+      send.eror400(res, "Error Fatal");
     });
   });
 

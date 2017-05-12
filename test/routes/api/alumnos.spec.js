@@ -1,149 +1,135 @@
 'use strict';
 var request = require('supertest');
 var async = require('async');
-var api = require('../../../app.js');
-var host = process.env.API_TEST_HOST || api;
+var server = require('../../../app.js');
+var host = process.env.API_TEST_HOST || server;
 
 request = request(host);
 
 describe('Test ALUMNO', function() {
 
-  var alumno;
-  var id_alumno;
+  var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ1NTEwMzcxMzksImp0aSI6Im95emZxMmFycHciLCJleHAiOjE0OTQ2Mzc0MzcxMzksImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwiaWRfcm9sIjoxfX0.qVBkuM6blzw3MHUPwVLgfolOQiX1VKba6U_vOu_hBkk';
 
-  before(function() {
-    alumno = {
-      "nombre": "Lucy",
-      "email": "lucy@gmail.com",
-      "telefono": 11111111
-    };
+  it('GET /api/alumnos ............. Obtener alumnos', function(done) {
+    async.waterfall([
+      function obtenerAlumnos(callback) {
+        request.get('/api/alumnos')
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+        .end(callback);
+      },
+      function afirmaciones(res) {
+        var body = res.body;
+        expect(body).to.have.property('success', "Ok");
+        expect(body).to.have.property('data');
+        var data = body.data;
+        expect(data).to.be.a('array');
+        done();
+      }
+    ], done);
   });
 
-  it('POST /api/alumnos', function(done) {
+  it('GET /api/alumnos/:id ......... Obtener un alumno', function(done) {
     async.waterfall([
-      function createAlumno(callback) {
+      function obtenerAlumno(callback) {
+        request.get('/api/alumnos/1')
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+        .end(callback);
+      },
+      function afirmaciones(res) {
+        var body = res.body;
+        expect(body).to.have.property('success', "Ok");
+        expect(body).to.have.property('data');
+        var data = body.data;
+        expect(data).to.have.property('id_alumno', 1);
+        expect(data).to.have.property('nombre', 'Juan');
+        expect(data).to.have.property('email', 'juan@gmail.com');
+        expect(data).to.have.property('telefono', 22654665);
+        expect(data).to.have.property('id_usuario', 1);
+        done();
+      }
+    ], done);
+  });
+
+  it('POST /api/alumnos ............ Registrar alumno', function(done) {
+    var datos =  {
+      nombre: 'Rosa Flores'
+    }
+    async.waterfall([
+      function registrarAlumno(callback) {
         request.post('/api/alumnos')
         .set('Accept', 'application/json')
-        .set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ0NzQ1NjMzNjIsImp0aSI6Im42NDBjNG9ndjYiLCJleHAiOjE0OTQ1NjA5NjMzNjIsImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwidXN1YXJpbyI6ImFkbWluIiwiY29udHJhc2VuYSI6IjIwMmNiOTYyYWM1OTA3NWI5NjRiMDcxNTJkMjM0YjcwIiwicm9sIjoiQURNSU4iLCJfZmVjaGFfY3JlYWNpb24iOiIyMDE3LTA1LTExVDAwOjU3OjQxLjAwMFoiLCJfZmVjaGFfbW9kaWZpY2FjaW9uIjoiMjAxNy0wNS0xMVQwMDo1Nzo0MS4wMDBaIn19.wRAvriwO3SFdu1j7b33yv-ZxWB0_Yo4b_Av6kHLz3C0')
-        .send(alumno)
+        .set('Authorization', token)
+        .send(datos)
         .expect(201)
         .expect('Content-Type', /application\/json/)
         .end(callback);
       },
-      function assertions(res) {
-        var data = res.body;
+      function afirmaciones(res) {
+        var body = res.body;
+        expect(body).to.have.property('success', "Ok");
+        expect(body).to.have.property('data');
+        var data = body.data;
         expect(data).to.have.property('id_alumno');
-        expect(data).to.have.property('nombre', alumno.nombre);
-        expect(data).to.have.property('email', alumno.email);
-        expect(data).to.have.property('telefono', alumno.telefono);
-        id_alumno = data.id_alumno;
+        expect(data).to.have.property('nombre', datos.nombre);
         done();
       }
     ], done);
   });
 
-  it('DELETE /api/alumnos/:id', function(done) {
+  it('PUT /api/alumnos/:id ......... Actualizar datos', function(done) {
+    var datos =  {
+      nombre: 'Rosa Flores Flores',
+      email: 'rosa@gmail.com',
+      telefono: 22765766
+    }
     async.waterfall([
-      function deleteAlumno(callback) {
-        request.delete('/api/alumnos/' + id_alumno)
+      function actualizarDatos(callback) {
+        request.put('/api/alumnos/2')
         .set('Accept', 'application/json')
-        .set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ0NzQ1NjMzNjIsImp0aSI6Im42NDBjNG9ndjYiLCJleHAiOjE0OTQ1NjA5NjMzNjIsImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwidXN1YXJpbyI6ImFkbWluIiwiY29udHJhc2VuYSI6IjIwMmNiOTYyYWM1OTA3NWI5NjRiMDcxNTJkMjM0YjcwIiwicm9sIjoiQURNSU4iLCJfZmVjaGFfY3JlYWNpb24iOiIyMDE3LTA1LTExVDAwOjU3OjQxLjAwMFoiLCJfZmVjaGFfbW9kaWZpY2FjaW9uIjoiMjAxNy0wNS0xMVQwMDo1Nzo0MS4wMDBaIn19.wRAvriwO3SFdu1j7b33yv-ZxWB0_Yo4b_Av6kHLz3C0')
-        .expect(204)
+        .set('Authorization', token)
+        .send(datos)
+        .expect(200)
         .end(callback);
       },
-      function getAlumno(res, callback) {
-        request.get('/api/alumnos/' + id_alumno)
+      function revisarActualizacion(res, callback) {
+        var body = res.body;
+        expect(body).to.have.property('success', "Ok");
+        request.get('/api/alumnos/2')
         .set('Accept', 'application/json')
-        .set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ0NzQ1NjMzNjIsImp0aSI6Im42NDBjNG9ndjYiLCJleHAiOjE0OTQ1NjA5NjMzNjIsImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwidXN1YXJpbyI6ImFkbWluIiwiY29udHJhc2VuYSI6IjIwMmNiOTYyYWM1OTA3NWI5NjRiMDcxNTJkMjM0YjcwIiwicm9sIjoiQURNSU4iLCJfZmVjaGFfY3JlYWNpb24iOiIyMDE3LTA1LTExVDAwOjU3OjQxLjAwMFoiLCJfZmVjaGFfbW9kaWZpY2FjaW9uIjoiMjAxNy0wNS0xMVQwMDo1Nzo0MS4wMDBaIn19.wRAvriwO3SFdu1j7b33yv-ZxWB0_Yo4b_Av6kHLz3C0')
+        .set('Authorization', token)
+        .end(callback);
+      },
+      function afirmaciones(res) {
+        var data = res.body.data;
+        expect(data).to.have.property('nombre', 'Rosa Flores Flores');
+        expect(data).to.have.property('email', 'rosa@gmail.com');
+        expect(data).to.have.property('telefono', 22765766);
+        done();
+      }
+    ], done);
+  });
+
+  it('DELETE /api/alumnos/:id ...... Eliminar alumno', function(done) {
+    async.waterfall([
+      function eliminarDatos(callback) {
+        request.delete('/api/alumnos/3')
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
+        .expect(200)
+        .end(callback);
+      },
+      function revisarEliminacion(res, callback) {
+        request.get('/api/alumnos/3')
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
         .expect(404)
         .end(callback);
-      }
-    ], done);
-  });
-
-  it('GET /api/alumnos', function(done) {
-    async.waterfall([
-      function createAlumno(callback) {
-        request.post('/api/alumnos')
-        .set('Accept', 'application/json')
-        .set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ0NzQ1NjMzNjIsImp0aSI6Im42NDBjNG9ndjYiLCJleHAiOjE0OTQ1NjA5NjMzNjIsImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwidXN1YXJpbyI6ImFkbWluIiwiY29udHJhc2VuYSI6IjIwMmNiOTYyYWM1OTA3NWI5NjRiMDcxNTJkMjM0YjcwIiwicm9sIjoiQURNSU4iLCJfZmVjaGFfY3JlYWNpb24iOiIyMDE3LTA1LTExVDAwOjU3OjQxLjAwMFoiLCJfZmVjaGFfbW9kaWZpY2FjaW9uIjoiMjAxNy0wNS0xMVQwMDo1Nzo0MS4wMDBaIn19.wRAvriwO3SFdu1j7b33yv-ZxWB0_Yo4b_Av6kHLz3C0')
-        .send(alumno)
-        .end(callback);
-      },
-      function getAlumno(res, callback) {
-        id_alumno = res.body.id_alumno;
-        request.get('/api/alumnos')
-        .set('Accept', 'application/json')
-        .set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ0NzQ1NjMzNjIsImp0aSI6Im42NDBjNG9ndjYiLCJleHAiOjE0OTQ1NjA5NjMzNjIsImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwidXN1YXJpbyI6ImFkbWluIiwiY29udHJhc2VuYSI6IjIwMmNiOTYyYWM1OTA3NWI5NjRiMDcxNTJkMjM0YjcwIiwicm9sIjoiQURNSU4iLCJfZmVjaGFfY3JlYWNpb24iOiIyMDE3LTA1LTExVDAwOjU3OjQxLjAwMFoiLCJfZmVjaGFfbW9kaWZpY2FjaW9uIjoiMjAxNy0wNS0xMVQwMDo1Nzo0MS4wMDBaIn19.wRAvriwO3SFdu1j7b33yv-ZxWB0_Yo4b_Av6kHLz3C0')
-        .expect(200)
-        .expect('Content-Type', /application\/json/)
-        .end(callback);
-      },
-      function assertions(res) {
-        var data = res.body;
-        expect(data).to.be.a('array');
-        expect(data.length).to.be.above(0); // array.legth >= 1
-        done();
-      }
-    ], done);
-  });
-
-  it('GET /api/alumnos/:id', function(done) {
-    async.waterfall([
-      function getAlumno(callback) {
-        request.get('/api/alumnos/' + id_alumno)
-        .set('Accept', 'application/json')
-        .set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ0NzQ1NjMzNjIsImp0aSI6Im42NDBjNG9ndjYiLCJleHAiOjE0OTQ1NjA5NjMzNjIsImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwidXN1YXJpbyI6ImFkbWluIiwiY29udHJhc2VuYSI6IjIwMmNiOTYyYWM1OTA3NWI5NjRiMDcxNTJkMjM0YjcwIiwicm9sIjoiQURNSU4iLCJfZmVjaGFfY3JlYWNpb24iOiIyMDE3LTA1LTExVDAwOjU3OjQxLjAwMFoiLCJfZmVjaGFfbW9kaWZpY2FjaW9uIjoiMjAxNy0wNS0xMVQwMDo1Nzo0MS4wMDBaIn19.wRAvriwO3SFdu1j7b33yv-ZxWB0_Yo4b_Av6kHLz3C0')
-        .expect(200)
-        .expect('Content-Type', /application\/json/)
-        .end(callback);
-      },
-      function assertions(res) {
-        var data = res.body;
-        expect(data).to.have.property('id_alumno', id_alumno);
-        expect(data).to.have.property('nombre', alumno.nombre);
-        expect(data).to.have.property('email', alumno.email);
-        expect(data).to.have.property('telefono', alumno.telefono);
-        done();
-      }
-    ], done);
-  });
-
-  it('PUT /api/alumnos/:id', function(done) {
-    var alumnoUpdated = {
-      "nombre": "Daisy"
-    };
-    async.waterfall([
-      function updateAlumno(callback) {
-        request.put('/api/alumnos/' + id_alumno)
-        .set('Accept', 'application/json')
-        .set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ0NzQ1NjMzNjIsImp0aSI6Im42NDBjNG9ndjYiLCJleHAiOjE0OTQ1NjA5NjMzNjIsImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwidXN1YXJpbyI6ImFkbWluIiwiY29udHJhc2VuYSI6IjIwMmNiOTYyYWM1OTA3NWI5NjRiMDcxNTJkMjM0YjcwIiwicm9sIjoiQURNSU4iLCJfZmVjaGFfY3JlYWNpb24iOiIyMDE3LTA1LTExVDAwOjU3OjQxLjAwMFoiLCJfZmVjaGFfbW9kaWZpY2FjaW9uIjoiMjAxNy0wNS0xMVQwMDo1Nzo0MS4wMDBaIn19.wRAvriwO3SFdu1j7b33yv-ZxWB0_Yo4b_Av6kHLz3C0')
-        .send(alumnoUpdated)
-        .expect(200)
-        .expect('Content-Type', /application\/json/)
-        .end(callback);
-      },
-      function getAlumno(res, callback) {
-        request.get('/api/alumnos/' + id_alumno)
-        .set('Accept', 'application/json')
-        .set('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ0NzQ1NjMzNjIsImp0aSI6Im42NDBjNG9ndjYiLCJleHAiOjE0OTQ1NjA5NjMzNjIsImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwidXN1YXJpbyI6ImFkbWluIiwiY29udHJhc2VuYSI6IjIwMmNiOTYyYWM1OTA3NWI5NjRiMDcxNTJkMjM0YjcwIiwicm9sIjoiQURNSU4iLCJfZmVjaGFfY3JlYWNpb24iOiIyMDE3LTA1LTExVDAwOjU3OjQxLjAwMFoiLCJfZmVjaGFfbW9kaWZpY2FjaW9uIjoiMjAxNy0wNS0xMVQwMDo1Nzo0MS4wMDBaIn19.wRAvriwO3SFdu1j7b33yv-ZxWB0_Yo4b_Av6kHLz3C0')
-        .end(callback);
-      },
-      function assertions(res) {
-        var data = res.body;
-        expect(data).to.have.property('id_alumno', id_alumno);
-        expect(data).to.have.property('nombre', alumnoUpdated.nombre);
-        expect(data).to.have.property('email', alumno.email);
-        expect(data).to.have.property('telefono', alumno.telefono);
-        done();
-      }
-    ], done);
-  });
-
-  after(function(done) {
-    async.waterfall([
-      function deleteAlumno(callback) {
-        request.delete('/api/alumnos/' + id_alumno).end(callback);
       }
     ], done);
   });

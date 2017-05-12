@@ -1,19 +1,18 @@
 'use strict';
-var errorResponse = require('../errors');
+var send = require('../../send');
 
 module.exports = function(model) {
 
   function remove(req, res, next) {
-    res.set('Content-Type','application/json');
     model.destroy(getOptions(req))
     .then(function(result) {
       if (!result) {
-        res.status(404).json(errorResponse.err404);
+        send.error404(res);
       } else {
-        res.status(204).json(result);
+        send.success200(res);
       }
     }).catch(function (err) {
-      res.status(400).json(errorResponse.err400);
+      send.error400(res, "No se puede eliminar");
     });
   }
 
