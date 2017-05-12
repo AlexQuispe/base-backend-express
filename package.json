@@ -1,6 +1,6 @@
 {
   "name": "base-backend-express",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Proyecto base para crear servicios web con Express (Framework de NodeJS).",
   "main": "app.js",
   "author": "Alex Quispe <q.wilmer.alex@gmail.com>",
