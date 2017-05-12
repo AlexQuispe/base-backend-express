@@ -8,8 +8,9 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "restart": "sequelize --env development db:migrate:undo:all && sequelize --env development db:migrate && sequelize --env development db:seed:all && node app.js",
-    "test": "sequelize --env test db:migrate:undo:all && sequelize --env test db:migrate && sequelize --env test db:seed:all && mocha test/routes/**/*.js"
+    "setup": "sequelize --env development db:migrate:undo:all && sequelize --env development db:migrate && sequelize --env development db:seed:all",
+    "test": "sequelize --env test db:migrate:undo:all && sequelize --env test db:migrate && sequelize --env test db:seed:all && mocha test/routes/**/*.js",
+    "apidoc": "apidoc -i ./src/routes -o ./public -t ./apidoc-template"
   },
   "dependencies": {
     "apidoc": "^0.17.5",

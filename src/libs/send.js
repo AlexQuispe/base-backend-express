@@ -9,9 +9,6 @@ module.exports = {
     var jsonData = data ? {success: "Ok", data: data} : {success: "Ok"};
     res.status(201).json(jsonData);
   },
-  success204: function(res) {
-    res.status(204).json({success: "Ok"});
-  },
   error400: function(res, data) {
     res.status(400).json({success: "Fail", data: data || "Algunos datos no son válidos"});
   },

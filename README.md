@@ -13,7 +13,6 @@ Proyecto base para crear servicios web con Express (Framework de NodeJS).
 
 - `200` **Ok**. La petición se ha completado con éxito.
 - `201` **Created**. La petición se ha completado con éxito y como resultado ha creado un recurso.
-- `204` **No Content**. La petición se ha completado con éxito pero su respuesta no tiene ningún contenido.
 - `400` **Bad Request**. El servidor no es capaz de entender la petición porque su sintaxis no es correcta.
 - `401` **Unauthorized**. El recurso solicitado requiere de autenticación.
 - `403` **Forbidden**. El servidor no puede responder con el recurso solicitado porque se ha denegado el acceso.
@@ -47,16 +46,12 @@ Proyecto base para crear servicios web con Express (Framework de NodeJS).
   * `nombre`
   * `email`
   * `telefono`
-  * `_fecha_creacion`
-  * `_fecha_modificacion`
 
 
 - `Materia`
   * `id_materia` **PK**
   * `nombre`
   * `sigla`
-  * `_fecha_creacion`
-  * `_fecha_modificacion`
 
 
 - `Inscripcion`
@@ -64,8 +59,6 @@ Proyecto base para crear servicios web con Express (Framework de NodeJS).
   * `fecha_inscripcion`
   * `id_estudiante` **_FK_**
   * `id_materia` **_FK_**
-  * `_fecha_creacion`
-  * `_fecha_modificacion`
 
 
 # Ejemplos de consultas:
@@ -99,6 +92,3 @@ Para instalar el proyecto ver el archivo
 # Referencias:
 
 - Los códigos de estado de HTTP http://librosweb.es/tutorial/los-codigos-de-estado-de-http/
-- Express http://expressjs.com/es/
-- Express application generator https://expressjs.com/en/starter/generator.html
-- Using Passport With Sequelize and MySQL https://code.tutsplus.com/tutorials/using-passport-with-sequelize-and-mysql--cms-27537
