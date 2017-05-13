@@ -60,7 +60,7 @@ module.exports = function(app) {
       }
       send.success200(res, data);
     }).catch(function (err) {
-      send.eror400(res, "Error Fatal");
+      send.error400(res, "Error Fatal");
     });
   });
 

@@ -8,7 +8,7 @@ request = request(host);
 
 describe('Test MATERIA', function() {
 
-  var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ1NTEwMzcxMzksImp0aSI6Im95emZxMmFycHciLCJleHAiOjE0OTQ2Mzc0MzcxMzksImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwiaWRfcm9sIjoxfX0.qVBkuM6blzw3MHUPwVLgfolOQiX1VKba6U_vOu_hBkk';
+  var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQ2NDA3MTk2MDgsImp0aSI6ImN0Z3ZkbXlkbmsiLCJleHAiOjE1MjYxNzY3MTk2MDgsImRhdGEiOnsiaWRfdXN1YXJpbyI6MSwiaWRfcm9sIjoxfX0.0C0goNQnL3361pU6nUvBQrtKR7kPYSro0c7QNtFpVug';
 
   it('GET /api/materias ............. Obtener materias', function(done) {
     async.waterfall([

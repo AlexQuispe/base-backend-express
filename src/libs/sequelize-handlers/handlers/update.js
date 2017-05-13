@@ -4,10 +4,9 @@ var send = require('../../send');
 module.exports = function(model) {
 
   function update(req, res, next) {
-    res.set('Content-Type','application/json');
+    delete req.body.usuario_autenticado;
     model.update(req.body, getOptions(req))
     .then(function(result) {
-      console.log("RESULT UPDATE = ", result);
       if (!result[0]) {
         send.error404(res);
       } else {
