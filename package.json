@@ -11,7 +11,7 @@
     "start-production": "NODE_ENV=production CONSOLE_LOGS=true node index.js",
     "setup": "node src/scripts/setup.js",
     "eslint": "\"node_modules/.bin/eslint\" index.js src/",
-    "test": "npm run test-unit && npm run test-integration",
+    "test": "yarn test-unit && yarn test-integration",
     "test-unit": "NODE_ENV=test \"node_modules/.bin/mocha\" --recursive \"./test/unit/{,/**/}*.spec.js\"",
     "test-integration": "NODE_ENV=test \"node_modules/.bin/mocha\" --recursive \"./test/integration/{,/**/}*.spec.js\""
   },
