@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=development node index.js",
-    "start-production": "NODE_ENV=production node index.js",
+    "start-production": "NODE_ENV=production CONSOLE_LOGS=true node index.js",
     "setup": "node src/scripts/setup.js",
     "eslint": "\"node_modules/.bin/eslint\" index.js src/",
     "test": "npm run test-unit && npm run test-integration",

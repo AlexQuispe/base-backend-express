@@ -1,13 +1,18 @@
 const passport = require('passport')
 const jwt      = require('jsonwebtoken')
 
+const logger = require('../../tools/logger')
+
 module.exports = (app) => {
   const CONTROLLER = {}
 
   CONTROLLER.login = async (req, res, next) => {
     try {
       return passport.authenticate('local', { session: false }, (err, usuario) => {
-        if (err || !usuario) { return res.error400('Login failed') }
+        if (err) {
+          logger.error('Login failed', err)
+          return res.error400('Login failed')
+        }
 
         req.login(usuario, { session: false }, (err) => {
           if (err) { return res.error500(err) }
