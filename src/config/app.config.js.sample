@@ -1,0 +1,40 @@
+exports.SERVER = {
+  env  : process.env.NODE_ENV || 'development',
+  port : process.env.PORT     || 4200,
+}
+
+exports.DATABASE = {
+  username : process.env.DB_USER || 'postgres',
+  password : process.env.DB_PASS || 'postgres',
+  database : process.env.DB_NAME || 'example_db',
+
+  params: {
+    host     : process.env.DB_HOST || '127.0.0.1',
+    port     : process.env.DB_PORT || 5432,
+    dialect  : 'postgres',
+    timezone : '-04:00',
+
+    lang             : 'es',
+    logging          : false,
+    operatorsAliases : 1,
+
+    define: {
+      underscored     : true,
+      freezeTableName : true,
+      timestamps      : true,
+      paranoid        : true,
+
+      createdAt : 'created_at',
+      updatedAt : 'updated_at',
+      deletedAt : 'deleted_at',
+    },
+  },
+}
+
+exports.AUTH = {
+  JWT_SECRET: 'YOUR_JWT_SECRET',
+}
+
+exports.PATH = {
+  public: '[ABSOLUTE_PATH]',
+}

@@ -1,1 +1,11 @@
+# Node
 /node_modules
+
+# Config
+/src/config/app.config.js
+
+# Temp files
+/temp
+
+# Log files
+/logs
